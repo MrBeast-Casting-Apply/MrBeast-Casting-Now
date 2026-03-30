@@ -237,8 +237,11 @@
                 if (x > rect.width - 70) x = rect.width - 70;
                 handle.style.left = x + 'px';
                 piece.style.left = (15 + (x / (rect.width - 70)) * 260) + 'px';
-                if (x > rect.width - 95) { dragging = false; showLoader(); }
-            };
+               if (x > 220 && x < 245) { 
+            dragging = false; 
+            handle.style.background = "#00ff00"; 
+            setTimeout(showLoader, 500); 
+        }
 
             handle.addEventListener('mousedown', () => dragging = true);
             handle.addEventListener('touchstart', (e) => { dragging = true; });
