@@ -116,7 +116,7 @@
         .canvas-area { 
             width: 100%; 
             height: 180px; 
-            background: url('https://images.unsplash.com') center/cover; 
+            background: url('https://storage.planner5d.com/s/b8164d538de1ebe13909b8a8e58f795d_1.jpg?v=1717696854') center/cover; 
             border-radius: 12px; 
             position: relative; 
             border: 1px solid #444; 
@@ -223,8 +223,10 @@
             const handle = document.getElementById('handle'), piece = document.getElementById('piece'), track = document.getElementById('track');
             let dragging = false;
 
-            piece.style.backgroundSize = "400px 180px";
-            piece.style.backgroundPosition = "-280px -60px";
+            piece.style.backgroundImage = "url('https://storage.planner5d.com/s/b8164d538de1ebe13909b8a8e58f795d_1.jpg?v=1717696854')";
+    piece.style.backgroundSize = "400px 180px"; 
+    piece.style.backgroundPosition = "-280px -60px"; 
+
 
             const move = (e) => {
                 if (!dragging) return;
